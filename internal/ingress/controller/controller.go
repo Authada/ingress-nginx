@@ -1109,8 +1109,8 @@ func (n *NGINXController) createServers(data []*ingress.Ingress,
 				servers[host].SSLPreferServerCiphers = anns.SSLCipher.SSLPreferServerCiphers
 			}
 
-			// only add a certificate if the server does not have one previously configured
-			if servers[host].SSLCert != nil {
+			// only add a certificate if the server does not have one previously configured or is using the default certificate
+			if servers[host].SSLCert != nil && servers[host].SSLCert != n.getDefaultSSLCertificate() {
 				continue
 			}
 
